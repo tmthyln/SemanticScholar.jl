@@ -1,0 +1,16 @@
+name: CompatHelper
+on:
+  schedule:
+    - cron: '00 00 * * *'
+  workflow_dispatch:
+jobs:
+  CompatHelper:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set Up Julia Environment
+        run: julia -e 'using Pkg; Pkg.add("CompatHelper")'
+      - name: Check Compatibility
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          COMPATHELPER_PRIV: ${{ secrets.DOCUMENTER_KEY }}
+        run: julia -e 'using CompatHelper; CompatHelper.main()'

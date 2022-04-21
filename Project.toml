@@ -1,0 +1,9 @@
+name = "<module-name>"
+uuid = ""
+authors = ["Timothy Lin <32549553+tmthyln@users.noreply.github.com>"]
+version = "0.1.0"
+
+[deps]
+
+[compat]
+julia = "1"
