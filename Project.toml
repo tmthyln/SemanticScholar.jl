@@ -1,7 +1,7 @@
 name = "SemanticScholar"
 uuid = "f2f2c3a1-78ca-4323-b152-8442c77f9dcc"
 authors = ["Timothy Lin <32549553+tmthyln@users.noreply.github.com>"]
-version = "0.1.0"
+version = "1.0.0"
 
 [deps]
 DataStructures = "864edb3b-99cc-5e75-8d2d-829cb0a9cfe8"
@@ -13,4 +13,6 @@ URIs = "5c2747f8-b7ea-4ff2-ba2e-563bfd36b1d4"
 [compat]
 DataStructures = "0.18"
 HTTP = "0.9"
+JSON3 = "1"
 julia = "1.6"
+URIs = "1"
