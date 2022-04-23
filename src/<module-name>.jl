@@ -1,5 +1,0 @@
-module <module-name>
-
-
-
-end

@@ -1,4 +1,4 @@
-using <module-name>
+using SemanticScholar
 
 using Test
 
