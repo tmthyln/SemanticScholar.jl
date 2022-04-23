@@ -72,6 +72,9 @@ end
 
 """
     paper_search(s2c, query; fields=["title"], limit=10, offset=0)
+
+Make a paper search request to the S2 API (equivalent to "/paper/search" endpoint).
+The `query` must be "plaintext" with no special search filters.
 """
 function paper_search(
     ssc::SemanticScholarConnection, search_query; 
@@ -92,6 +95,11 @@ function paper_search(
     return response["data"]
 end
 
+"""
+    paper_details(s2c, paper_id; fields)
+
+Make a request for details about a paper to the S2 API (equivalent to "/paper/{paper_id}" endpoint).
+"""
 function paper_details(
     ssc::SemanticScholarConnection, paper_id;
     fields
@@ -104,6 +112,11 @@ function paper_details(
     return response
 end
 
+"""
+    paper_authors(s2c, paper_id; fields=[], offset=0, limit=500)
+
+Make a paper authors request to the S2 API (equivalent to "/paper/{paper_id}/authors" endpoint).
+"""
 function paper_authors(
     ssc::SemanticScholarConnection, paper_id;
     fields=[],
@@ -122,6 +135,11 @@ function paper_authors(
     return response
 end
 
+"""
+    paper_citations(s2c, paper_id; fields=[], offset=0, limit=500)
+
+Make a paper citations request to the S2 API (equivalent to "/paper/{paper_id}/citations" endpoint).
+"""
 function paper_citations(
     ssc::SemanticScholarConnection, paper_id;
     fields=[],
@@ -140,6 +158,11 @@ function paper_citations(
     return response
 end
 
+"""
+    paper_references(s2c, paper_id; fields=[], offset=0, limit=500)
+
+Make a paper references request to the S2 API (equivalent to "/paper/{paper_id}/references" endpoint).
+"""
 function paper_references(
     ssc::SemanticScholarConnection, paper_id;
     fields=[],
@@ -149,7 +172,7 @@ function paper_references(
 
     limit + offset < 10_000 || throw(ArgumentError("The sum of offset and limit must be < 10000"))
 
-    response = _request(ssc, "/paper/$(paper_id)/citations", [
+    response = _request(ssc, "/paper/$(paper_id)/references", [
         "fields" => join(fields, ","),
         "offset" => offset,
         "limit" => limit,
@@ -158,6 +181,11 @@ function paper_references(
     return response
 end
 
+"""
+    author_search(s2c, query; fields=["title"], limit=10, offset=0)
+
+Make an author search request to the S2 API (equivalent to "/author/search" endpoint).
+"""
 function author_search(
     ssc::SemanticScholarConnection, search_query; 
     fields=["title"],
@@ -177,6 +205,11 @@ function author_search(
     return response["data"]
 end
 
+"""
+    author_details(s2c, author_id; fields)
+
+Make a request for author details to the S2 API (equivalent to "/author/{author_id}" endpoint).
+"""
 function author_details(
     ssc::SemanticScholarConnection, author_id;
     fields
@@ -189,6 +222,11 @@ function author_details(
     return response
 end
 
+"""
+    author_papers(s2c, author_id; fields=[], offset=0, limit=500)
+
+Make an author papers request to the S2 API (equivalent to "/author/{author_id}/papers" endpoint).
+"""
 function author_papers(
     ssc::SemanticScholarConnection, author_id;
     fields=[],
@@ -244,6 +282,13 @@ _compress_somethings(stream, key) =
     [thing[key] for thing in stream if thing[key] !== nothing]
 
 
+"""
+    search_papers(s2c, query; limit=100)
+
+Search the S2 Academic Graph for papers matching the search `query`.
+
+This is a *high-level* API function, so it returns an array of `Paper`s.
+"""
 function search_papers(
     ssc::SemanticScholarConnection, search_query;
     limit=100,
@@ -280,6 +325,13 @@ function search_papers(
     return papers
 end
 
+"""
+    search_authors(s2c, query; limit=50)
+
+Search the S2 Academic Graph for authors with names matching the search `query`.
+
+This is a *high-level* API function, so it returns an array of `Author`s.
+"""
 function search_authors(
     ssc::SemanticScholarConnection, search_query;
     limit=50,

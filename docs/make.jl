@@ -10,7 +10,7 @@ makedocs(
     modules=[SemanticScholar],
     pages=[
         "Home" => "index.md",
-        "API" => [
+        "API Reference" => [
             "Low-Level API" => "api_low_level.md",
             "High-Level API" => "api_high_level.md",
         ],
